@@ -46,8 +46,8 @@ function Kpi({ icon, label, value, foot, children, i }: { icon: React.ElementTyp
       </div>
       <p className="mt-5 text-[2.5rem] font-semibold leading-none tracking-[-0.03em] tabular-nums">{value}</p>
       <div className="mt-2">{foot}</div>
-      {/* the chart takes whatever height the row gives the card */}
-      <div className="mt-4 min-h-16 flex-1" aria-hidden>{children}</div>
+      {/* the chart takes whatever height the row gives the card; absolute so a stacked card on phones still has a definite height */}
+      <div className="relative mt-4 min-h-28 flex-1" aria-hidden><div className="absolute inset-0">{children}</div></div>
     </section>
   )
 }
