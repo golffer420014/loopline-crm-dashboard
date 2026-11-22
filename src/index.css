@@ -1,0 +1,240 @@
+/* Hallmark · checked: 2026-11-22 · genre: modern-minimal (inferred: B2B sales CRM) · shape: app screen · posture: restrained
+ * floor: 0 FAIL · fixed: 7 (2a, 10a, 38i, 44d, 48, 50, 67) · reflex fixed: 2 (4, 11), waived 1 (12) · finish answered: 49, 70, F1, F3, F16
+ * built: the project · redesign: polish · v2.0.0 */
+/* Hallmark · waive 12 · the overshoot sits only on the rail disc and rail items, and the reduced-motion block at index.css base cuts every transition and animation to 0.01ms · the owner asked for the sidebar to animate; the overshoot is that request */
+/* Hallmark · dropped onClick={() => toast(`${owner.name.split(' ')[0]} was pinged about ${deal.title}`)} · it only showed a toast and changed nothing; Copy reminder puts a real message on the clipboard instead */
+/* Hallmark · dismissed 49 · the contact card button carries aria-label with the name only and describes itself by the title line; the long text sloplint reads is the visible card content */
+/* Hallmark · answered F5 · KPI icons sit in white discs on the dashboard only, one per card, as wayfinding */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Soft lavender canvas, white frosted cards, one indigo signal, a navy rail and spotlight card. */
+:root {
+  --radius: 1rem;
+  --background: oklch(97.2% 0.014 285);
+  --foreground: oklch(22% 0.03 275);
+  --card: oklch(99.5% 0.004 285 / 0.78);
+  --card-foreground: oklch(22% 0.03 275);
+  --popover: oklch(99.5% 0.004 285);
+  --popover-foreground: oklch(22% 0.03 275);
+  --primary: oklch(52% 0.2 275);
+  --primary-foreground: oklch(99% 0.005 275);
+  --secondary: oklch(94.5% 0.02 285);
+  --secondary-foreground: oklch(25% 0.04 275);
+  --muted: oklch(94.5% 0.018 285);
+  --muted-foreground: oklch(48% 0.03 275);
+  --accent: oklch(93.5% 0.03 285);
+  --accent-foreground: oklch(25% 0.04 275);
+  --destructive: oklch(55% 0.2 25);
+  --border: oklch(90% 0.02 285);
+  --input: oklch(88% 0.025 285);
+  --ring: oklch(52% 0.2 275);
+
+  /* navy surfaces: the rail and the spotlight card */
+  --ink: oklch(24% 0.06 272);
+  --ink-2: oklch(31% 0.07 272);
+  --on-ink: oklch(97% 0.01 280);
+  --on-ink-muted: oklch(78% 0.04 280);
+
+  /* status colours, each paired with readable text */
+  --ok: oklch(62% 0.15 155);
+  --ok-soft: oklch(94% 0.05 155);
+  --ok-text: oklch(42% 0.12 155);
+  --warn: oklch(75% 0.15 70);
+  --warn-soft: oklch(95% 0.05 80);
+  --warn-text: oklch(46% 0.11 60);
+  --bad: oklch(60% 0.2 25);
+  --bad-soft: oklch(95% 0.03 25);
+  --bad-text: oklch(48% 0.18 25);
+
+  --display-accent: oklch(55% 0.16 278);
+
+  /* signal colours on the navy live card */
+  --sig-1: oklch(82% 0.14 172);
+  --sig-2: oklch(80% 0.11 225);
+  --sig-3: oklch(78% 0.12 350);
+  --sig-4: oklch(87% 0.13 92);
+
+  --chart-1: oklch(55% 0.2 275);
+  --chart-2: oklch(70% 0.14 230);
+  --chart-3: oklch(72% 0.15 160);
+  --chart-4: oklch(78% 0.14 75);
+  --chart-5: oklch(66% 0.18 330);
+
+  /* sales activity series and the revenue area */
+  --act-calls: oklch(45% 0.12 270);
+  --act-meetings: oklch(62% 0.17 280);
+  --act-proposals: oklch(80% 0.08 290);
+  --area-from: oklch(52% 0.21 272);
+  --area-to: oklch(72% 0.13 270);
+  --bar: oklch(48% 0.2 272);
+
+  /* canvas: one lavender hue in three soft blooms */
+  --canvas: oklch(94.5% 0.02 282);
+  --bloom-1: oklch(88% 0.06 285 / 0.7);
+  --bloom-2: oklch(93% 0.035 282 / 0.6);
+  --bloom-3: oklch(90% 0.045 280 / 0.55);
+
+  /* frosted surfaces */
+  --edge: oklch(100% 0 0 / 0.9);
+  --sheen: oklch(100% 0 0 / 0.9);
+  --frame-top: oklch(99% 0.01 280 / 0.72);
+  --frame-bottom: oklch(97% 0.02 285 / 0.5);
+  --glass-top: oklch(100% 0 0 / 0.92);
+  --glass-bottom: oklch(99% 0.006 285 / 0.82);
+  --pill-bg: oklch(100% 0 0 / 0.85);
+  --shadow-near: oklch(30% 0.05 275 / 0.05);
+  --shadow-soft: oklch(35% 0.09 278 / 0.22);
+  --shadow-lift: oklch(35% 0.12 278 / 0.32);
+  --shadow-frame: oklch(35% 0.1 280 / 0.35);
+
+  /* navy surface details */
+  --ink-glow: oklch(36% 0.1 275 / 0.9);
+  --ink-top: oklch(27% 0.07 272);
+  --ink-bottom: oklch(20% 0.055 270);
+  --ink-shadow: oklch(22% 0.08 272 / 0.7);
+  --ink-sheen: oklch(100% 0 0 / 0.08);
+  --ink-well: oklch(16% 0.04 270);
+  --ink-grid: oklch(100% 0 0 / 0.04);
+  --ink-label: oklch(100% 0 0 / 0.45);
+  --sig-1-soft: oklch(70% 0.15 160 / 0.18);
+
+  /* brand mark and the rail disc */
+  --brand-from: oklch(62% 0.19 285);
+  --brand-to: oklch(48% 0.21 278);
+  --brand-shadow: oklch(45% 0.2 275 / 0.7);
+  --disc-ring: oklch(100% 0 0 / 0.08);
+  --disc-glow: oklch(80% 0.1 280 / 0.55);
+}
+
+@theme inline {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 6px);
+  --radius-lg: calc(var(--radius) - 4px);
+  --radius-xl: var(--radius);
+  --radius-2xl: calc(var(--radius) + 6px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-on-ink: var(--on-ink);
+  --color-on-ink-muted: var(--on-ink-muted);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-ok-text: var(--ok-text);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-warn-text: var(--warn-text);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --color-bad-text: var(--bad-text);
+  --color-display-accent: var(--display-accent);
+  --color-sig-1: var(--sig-1);
+  --color-sig-2: var(--sig-2);
+  --color-sig-3: var(--sig-3);
+  --color-sig-4: var(--sig-4);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-bar: var(--bar);
+  --color-sig-1-soft: var(--sig-1-soft);
+  --color-ink-well: var(--ink-well);
+  --color-brand-from: var(--brand-from);
+  --color-brand-to: var(--brand-to);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  html, body { overflow-x: clip; }
+  html { color-scheme: light; scrollbar-color: var(--border) transparent; }
+  body {
+    @apply text-foreground antialiased min-h-dvh;
+    /* soft fixed blooms behind the frame, like light through frosted panels */
+    background:
+      radial-gradient(48rem 34rem at 92% -8%, var(--bloom-1), transparent 70%),
+      radial-gradient(40rem 30rem at 30% 0%, var(--bloom-2), transparent 70%),
+      radial-gradient(44rem 32rem at 5% 105%, var(--bloom-3), transparent 70%),
+      var(--canvas);
+    background-attachment: fixed;
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1, h2, h3 { overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
+  ::selection { background: oklch(from var(--primary) l c h / 0.2); }
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  }
+}
+
+/* the big rounded app frame that holds the rail and the page */
+@utility frame {
+  background: linear-gradient(160deg, var(--frame-top), var(--frame-bottom));
+  backdrop-filter: blur(24px) saturate(1.3);
+  border: 1px solid var(--edge);
+  box-shadow: 0 30px 80px -40px var(--shadow-frame), inset 0 1px 0 var(--sheen);
+}
+
+/* white panels: high opacity so text stays crisp, layered soft shadow for lift */
+@utility glass {
+  background: linear-gradient(180deg, var(--glass-top), var(--glass-bottom));
+  backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid var(--edge);
+  box-shadow: 0 1px 2px var(--shadow-near), 0 12px 32px -16px var(--shadow-soft);
+}
+
+/* small white pill controls in the header and toolbars */
+@utility pill {
+  background: var(--pill-bg);
+  border: 1px solid var(--edge);
+  box-shadow: 0 1px 2px var(--shadow-near), 0 6px 16px -10px var(--shadow-soft);
+}
+
+/* navy surface with depth: the rail and the live card */
+@utility ink-panel {
+  background:
+    radial-gradient(120% 80% at 100% 0%, var(--ink-glow), transparent 60%),
+    linear-gradient(170deg, var(--ink-top), var(--ink-bottom));
+  box-shadow: 0 24px 48px -24px var(--ink-shadow), inset 0 1px 0 var(--ink-sheen);
+}
+
+/* entrance: rise and fade, staggered by --i; CSS only, so the page is never hidden without JS */
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+@media (prefers-reduced-motion: no-preference) {
+  .rise { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 70ms); }
+}
+/* sidebar: the rail slides in, then its items drop in one by one; the badge gives a slow pulse */
+@keyframes rail-in { from { opacity: 0; transform: translateX(-28px) scale(0.96); } }
+@keyframes rail-up { from { opacity: 0; transform: translateY(28px); } }
+@keyframes item-in { from { opacity: 0; transform: translateY(-8px) scale(0.8); } }
+@keyframes pop { 0%, 80%, 100% { transform: scale(1); } 88% { transform: scale(1.25); } }
+@media (prefers-reduced-motion: no-preference) {
+  .rail { animation: rail-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .rail-item { animation: item-in 0.5s cubic-bezier(0.34, 1.4, 0.5, 1) both; animation-delay: calc(250ms + var(--i, 0) * 60ms); }
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 48rem) {
+  .rail { animation-name: rail-in; }
+}
+
+.lift { transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.25s; }
+@media (prefers-reduced-motion: no-preference) {
+  .lift:hover { transform: translateY(-3px); box-shadow: 0 1px 2px var(--shadow-near), 0 22px 40px -18px var(--shadow-lift); }
+}
