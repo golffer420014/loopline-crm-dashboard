@@ -96,7 +96,8 @@ export function Layout() {
   return (
     <TooltipProvider delayDuration={200}>
       <div className="min-h-dvh md:p-4">
-        <div className="frame relative mx-auto min-h-dvh max-w-[100rem] pb-28 md:flex md:min-h-[calc(100dvh-2rem)] md:gap-6 md:rounded-[2rem] md:p-4 md:pb-4">
+        {/* the frame fills the window and keeps the rail at its edge; only the work area below is capped */}
+        <div className="frame relative min-h-dvh pb-28 md:flex md:min-h-[calc(100dvh-2rem)] md:gap-6 md:rounded-[2rem] md:p-4 md:pb-4">
           {/* navy rail: inside the frame on desktop, a floating bottom bar on phones */}
           <nav
             aria-label="Main"
@@ -150,7 +151,7 @@ export function Layout() {
             </div>
           </nav>
 
-          <div className="min-w-0 flex-1">
+          <div className="mx-auto w-full min-w-0 max-w-[130rem] flex-1">
             <header className="flex flex-wrap items-center gap-3 px-4 pt-4 md:px-2 md:pt-1">
               <div className="pill flex h-11 items-center gap-2 rounded-full pl-1.5 pr-4 text-sm">
                 <Mark className="size-8 md:hidden" />

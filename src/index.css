@@ -178,7 +178,7 @@
     background-attachment: fixed;
     font-feature-settings: "ss01", "cv11";
   }
-  h1, h2, h3 { overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
+  h1, h2, h3 { overflow-wrap: break-word; min-width: 0; text-wrap-style: balance; }
   ::selection { background: oklch(from var(--primary) l c h / 0.2); }
   @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
